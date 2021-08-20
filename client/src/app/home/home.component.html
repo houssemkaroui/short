@@ -1,0 +1,44 @@
+﻿<div class="p-4">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+            <div class="form-group">
+                <label for="longUrl">URL</label>
+                <input type="longUrl" formControlName="longUrl" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.longUrl.errors }" />
+                <div *ngIf="submitted && f.longUrl.errors" class="invalid-feedback">
+                    <div *ngIf="f.longUrl.errors.required">Url is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary">
+                    <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> -->
+                    Generate
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <ul class="list-group" *ngFor="let lien of liens" style="margin: revert;">
+        <li class="list-group-item" >
+            <a style="color: blue;" target={{lien.longUrl}} href={{lien.longUrl}}
+                onclick="window.open(lien.longUrl); return false;" (click)="posteClick(lien)">{{lien.shortUrl}}</a>
+                <button type="button" class="btn btn-primary" (click)="getNombre(lien,content)" style="position: relative;left: 40px;">Statistique</button>
+        </li>
+
+    </ul>
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Statistique</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h4 style="color: rgb(0, 123, 139);"> Le nombre de Visite de ce site est : {{Nombre.data.clicsNb}}</h4>
+    </div>
+    <div class="modal-footer">
+    </div>
+</ng-template>
